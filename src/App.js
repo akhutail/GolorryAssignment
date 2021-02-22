@@ -27,7 +27,7 @@ function App() {
 
     else { // redirected
       const urls = window.location.href;
-      const token = urls.substring(urls.indexOf("#acess") + 14, urls.indexOf("&token_type"));
+      const token = urls.substring(urls.indexOf("#access") + 14, urls.indexOf("&token_type"));
 
       fetch("https://api.spotify.com/v1/artists/22bE4uQ6baNwSHPVcDxLCe/albums", {
         method: "get",
