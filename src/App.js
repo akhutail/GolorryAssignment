@@ -7,7 +7,6 @@ function App() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [albums, setAlbums] = useState([]);
 
-
   const albumGrid = 
   <div className={""}>
     <Grid container spacing={1}>
@@ -21,27 +20,38 @@ function App() {
   </div>
 
   useEffect(() => {
-    fetch("https://api.spotify.com/v1/artists/22bE4uQ6baNwSHPVcDxLCe/albums", {
-      method: "get",
-      headers: new Headers({
-        "content-type": "application/json",
-        "Authorization": "Bearer BQCcj7F6PBUqWHlO-H5PXNexcfJq5POl5C-rdZkLUWj9Gm0bZ4IosrZ0iLURyHgQpmth0VX-zCpFps8qGBjkxYWSttBtqA2e-LrjLwrzI5ClWw7YRyn-2kvfszr8gIh5-c5lsZAxCTpNQrl4fZn5u8sVdrPtr00eUE8",
-      }),
-    })
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          console.log(result)
-          if(result.error === undefined){ // successfully retrieved albums
-            setAlbums(result.items);
+
+    if(window.location.href.indexOf("#access_token") === -1){// not found, not redirected, needs to redirect
+      window.location.href = "https://accounts.spotify.com/authorize?client_id=1382ccbd19854d0eb5c67ccf45a846dd&redirect_uri=https:%2F%2Fmain.d3h4j1s9xh2pja.amplifyapp.com%2Fcallback&response_type=token&state=123";
+    }
+
+    else { // redirected
+      const urls = window.location.href;
+      const token = urls.substring(urls.indexOf("#acess") + 14, urls.indexOf("&token_type"));
+
+      fetch("https://api.spotify.com/v1/artists/22bE4uQ6baNwSHPVcDxLCe/albums", {
+        method: "get",
+        headers: new Headers({
+          "content-type": "application/json",
+          "Authorization": "Bearer " + token,
+        }),
+      })
+        .then(res => res.json())
+        .then(
+          (result) => {
+            setIsLoaded(true);
+            console.log(result)
+            if(result.error === undefined){ // successfully retrieved albums
+              setAlbums(result.items);
+            }
+
+          },
+          (error) => {
+            setIsLoaded(true);
+            setError(error);
           }
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
+        );
+    }
   }, [])
 
   if (error) {
