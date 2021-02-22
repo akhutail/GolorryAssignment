@@ -25,7 +25,7 @@ function App() {
       method: "get",
       headers: new Headers({
         "content-type": "application/json",
-        "Authorization": "Bearer 22bE4uQ6baNwSHPVcDxLCe",
+        "Authorization": "Bearer BQALaPV3g5uMtzqpEePPast5C8Y4p6CCnwg7-EJGiyesQno0euHajX8CHCpmYGapdXPW4bBRhafRTYnLkadTMwOIZT_W6i8qfZf_sueI-4o9GmzZCibv1Dle3eifrrcm6t2slfTg7hfYNqCns4ZVUL6Ea7AMJ50aZv8",
       }),
     })
       .then(res => res.json())
@@ -54,7 +54,7 @@ function App() {
         
         {
         albums === undefined ? 
-          "There was an error our side"
+          "Spotify authentication expired!"
           :
           albumGrid
         }
