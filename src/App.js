@@ -2,6 +2,9 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import Grid from '@material-ui/core/Grid';
 
+const monthsArray = ["January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December"];
+
 function App() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -61,26 +64,40 @@ function App() {
   } else {
     return (
       <div className="App">
-      <header className="App-header">
-        
-        {
-        albums.length === 0 ? 
-          "Authentication problem: spotify authentication token expired"
-          :
-          albumGrid
-        }
-        
-      </header>
-    </div>
+        <div className="Title">Rolling Stones' Albums</div>
+        <div className="Grid">
+          
+          {
+          albums.length === 0 ? 
+            "No albums recieved. Check spotify authentication"
+            :
+            albumGrid
+          }
+          
+        </div>
+      </div>
     );
   }
 }
 
 
 function AlbumCard({album}) {
+  const date = album.release_date.substring(8, 10);
+  const month = monthsArray[parseInt(album.release_date.substring(5, 7))];
+  const year = album.release_date.substring(0, 4);
+
+  
   return (
     <div className="AlbumCardOuter">
-      <div className="ImageHeadingRow"><div>{album.name}</div><div>{album.release_date}</div></div>
+      <div className="ImageHeadingRow">
+        <div className="AlbumName">
+          {album.name}
+        </div>
+        <div>
+          {`Released ${date} ${month} ${year}`}
+        </div>
+      </div>
+
       <img src={album.images[1].url} className="AlbumImage" alt={album.name}/>
 
     </div>

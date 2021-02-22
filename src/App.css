@@ -4,12 +4,12 @@
   padding: 20px 150px;
 }
 
-.App-header {
+.Grid {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   
-  font-size: calc(10px + 1vmin);
+  font-size: 20px;
   color: white;
 }
 
@@ -25,4 +25,15 @@
 .ImageHeadingRow {
   margin-bottom: 10px;
   justify-content: center;
+}
+
+.Title {
+  font-size: 40px;
+  color: maroon;
+  font-weight: bold;
+  margin-bottom: 25px;
+}
+
+.AlbumName {
+  color: maroon;
 }
