@@ -25,17 +25,18 @@ function App() {
       method: "get",
       headers: new Headers({
         "content-type": "application/json",
-        "Authorization": "Bearer BQALaPV3g5uMtzqpEePPast5C8Y4p6CCnwg7-EJGiyesQno0euHajX8CHCpmYGapdXPW4bBRhafRTYnLkadTMwOIZT_W6i8qfZf_sueI-4o9GmzZCibv1Dle3eifrrcm6t2slfTg7hfYNqCns4ZVUL6Ea7AMJ50aZv8",
+        "Authorization": "Bearer BQCcj7F6PBUqWHlO-H5PXNexcfJq5POl5C-rdZkLUWj9Gm0bZ4IosrZ0iLURyHgQpmth0VX-zCpFps8qGBjkxYWSttBtqA2e-LrjLwrzI5ClWw7YRyn-2kvfszr8gIh5-c5lsZAxCTpNQrl4fZn5u8sVdrPtr00eUE8",
       }),
     })
       .then(res => res.json())
       .then(
         (result) => {
           setIsLoaded(true);
-          setAlbums(result.items);
-          console.log(result);
+          console.log(result)
+          if(result.error === undefined){ // successfully retrieved albums
+            setAlbums(result.items);
+          }
         },
-        
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -53,8 +54,8 @@ function App() {
       <header className="App-header">
         
         {
-        albums === undefined ? 
-          "Spotify authentication expired!"
+        albums.length === 0 ? 
+          "Authentication problem: spotify authentication token expired"
           :
           albumGrid
         }
@@ -62,7 +63,7 @@ function App() {
       </header>
     </div>
     );
-  } 
+  }
 }
 
 
